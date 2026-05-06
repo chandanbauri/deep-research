@@ -1,0 +1,44 @@
+# ── LangChain Ollama integration ───────────────────────────────────────────────
+# Provides ChatOllama — the LangChain-native async LLM client for Ollama models.
+# Used by OllamaClient (llm/client.py) to call local models via ainvoke/astream.
+# Replaces the raw ollama.AsyncClient with a LangChain Runnable, enabling
+# seamless integration with LangGraph nodes.
+langchain-ollama>=1.1.0
+
+# ── LangGraph ──────────────────────────────────────────────────────────────────
+# State machine framework for multi-agent pipelines.
+# Powers ResearchPipeline (pipeline/runner.py) as a directed StateGraph:
+# nodes = agents, edges = transitions, conditional_edges = critique feedback loop.
+langgraph>=0.3.0
+
+# ── Ollama Python SDK ──────────────────────────────────────────────────────────
+# Low-level Ollama client (kept as transitive dependency).
+# Direct usage replaced by langchain-ollama ChatOllama.
+ollama>=0.3.3
+
+# ── Web Search ─────────────────────────────────────────────────────────────────
+# DuckDuckGo search — no API key required.
+# Used by WebSearchTool to retrieve URLs and snippets.
+duckduckgo-search>=6.3.7
+
+# ── HTML Parsing ───────────────────────────────────────────────────────────────
+# Industry-standard HTML parser. Used by WebScraperTool to extract page text.
+beautifulsoup4>=4.12.3
+# Fast C-based parser backend for BeautifulSoup.
+# Dramatically faster than html.parser for large pages.
+lxml>=5.2.0
+
+# ── Testing ────────────────────────────────────────────────────────────────────
+# Test runner for all test_* files under tests/
+pytest>=8.3.0
+# Enables async def test_ functions — required because all tools/agents are async
+pytest-asyncio>=0.24.0
+# Provides mocker fixture for patching Ollama and HTTP calls in tests
+pytest-mock>=3.14.0
+
+# ── Already installed (listed for completeness, not re-installed) ──────────────
+# httpx>=0.27.0       — async HTTP client for WebScraperTool
+# pydantic>=2.9.0     — data models (ResearchState, AgentMessage, FinalReport)
+# click>=8.1.7        — CLI argument parsing in main.py
+# rich>=13.8.0        — coloured console logging and progress bars
+# python-dotenv>=1.0.1 — load OLLAMA_HOST and config from .env
